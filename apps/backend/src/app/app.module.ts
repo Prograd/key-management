@@ -1,9 +1,12 @@
-import { Module } from '@nestjs/common';
+import {Module} from '@nestjs/common';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from "@nestjs/typeorm";
-import {ConfigModule, ConfigService} from "@nestjs/config";
+import { ConfigModule, ConfigService } from "@nestjs/config";
+import { AuthModule } from "./auth/auth.module";
+import { User } from "./users/user.entity";
+import {Password} from "./users/password.entity";
 
 @Module({
   imports: [
@@ -16,11 +19,12 @@ import {ConfigModule, ConfigService} from "@nestjs/config";
         username: configService.get('MYSQL_USERNAME'),
         password: configService.get('MYSQL_PASSWORD'),
         database: configService.get('MYSQL_DATABASE'),
-        entities: [],
+        entities: [User, Password],
         synchronize: true,
       }),
       inject: [ConfigService],
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
