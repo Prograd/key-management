@@ -1,0 +1,40 @@
+version: '3.8'
+
+networks:
+  corp:
+    driver: bridge
+
+services:
+  mysql:
+    image: mysql:8.0
+    networks:
+      - corp
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_USER: "${MYSQL_USERNAME}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+  nest:
+    build:
+      context: ./
+      dockerfile: ./apps/backend/Dockerfile
+      args:
+        NODE_ENV: "production"
+        BUILD_FLAG: ""
+    image: keyacr.azurecr.io/keymanagment:latest
+    ports:
+      - "80:80"
+    environment:
+      NODE_ENV: "production"
+      PORT: 80
+      MYSQL_HOST: "${MYSQL_HOST}"
+      MYSQL_PORT: "${MYSQL_PORT}"
+      MYSQL_USERNAME: "${MYSQL_USERNAME}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+    networks:
+      - corp
+    deploy:
+      restart_policy:
+        condition: on-failure
+

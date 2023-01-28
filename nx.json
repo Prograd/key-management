@@ -16,6 +16,12 @@
     }
   },
   "targetDefaults": {
+    "push-builder": {
+      "dependsOn": ["build-builder"]
+    },
+    "build-compose": {
+      "dependsOn": ["push-builder"]
+    },
     "build": {
       "dependsOn": [
         "^build"
