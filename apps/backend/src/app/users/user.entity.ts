@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable} from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable, OneToMany} from 'typeorm';
 import {Password} from "./password.entity";
 
 @Entity()
@@ -12,7 +12,6 @@ export class User {
   @Column()
   password: string;
 
-  @ManyToMany(type => Password, password => password.users)
-  @JoinTable()
+  @OneToMany(type => Password, password => password.user)
   passwords: Password[];
 }

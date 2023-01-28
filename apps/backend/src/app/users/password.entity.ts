@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryGeneratedColumn, ManyToMany} from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
 import {User} from "./user.entity";
 
 @Entity()
@@ -9,9 +9,6 @@ export class Password {
   @Column()
   hashedPassword: string;
 
-  @Column()
-  salt: string;
-
-  @ManyToMany(type => User, user => user.passwords)
-  users: User[];
+  @ManyToOne(type => User, user => user.passwords)
+  user: User;
 }
