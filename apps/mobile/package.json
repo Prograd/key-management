@@ -10,6 +10,15 @@
     "react-native-config": "*",
     "react-native-svg": "*",
     "@react-native-async-storage/async-storage": "*",
-    "metro-config": "*"
+    "metro-config": "*",
+    "@react-navigation/native": "*",
+    "styled-components": "*",
+    "formik": "*",
+    "yup": "*",
+    "react-native-safe-area-context": "*",
+    "react-native-screens": "*",
+    "@react-navigation/native-stack": "*",
+    "@tanstack/react-query": "*",
+    "react-native-encrypted-storage": "*"
   }
 }

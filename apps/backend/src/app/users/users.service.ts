@@ -18,11 +18,13 @@ export class UsersService {
     });
   }
 
-  async add(user: { password: string; username: string }): Promise<void> {
-    await this.usersRepository.save({
+  async add(user: { password: string; username: string }): Promise<{ userId: number }> {
+    const addedUser = await this.usersRepository.save({
       ...user,
-      password: bcrypt.hashSync(user.password, 10)
+      password: bcrypt.hashSync(user.password, 10),
+      passwords: [],
     });
+    return { userId:addedUser.userId};
   }
 
   async isPasswordMatch(user: User, password: string): Promise<boolean> {

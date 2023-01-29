@@ -28,13 +28,13 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Post('password')
-  async addPassword(@Body() plainTextPassword: { password:string }, @Request() req) {
-    return this.passwordService.addPassword(plainTextPassword, req.user);
+  async addPassword(@Body() body: { password:string, userId: number }) {
+    return this.passwordService.addPassword(body.password, body .userId);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('passwords')
-  async getPasswords(@Request() req) {
-    return this.passwordService.getPasswords(req.user.userId);
+  @Post('passwords')
+  async getPasswords(@Body() body: { userId: number }) {
+    return this.passwordService.getPasswords(body.userId);
   }
 }
